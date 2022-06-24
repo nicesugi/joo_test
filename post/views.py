@@ -9,22 +9,24 @@ class PostView(APIView):
     # 게시글 조회
     def get(self, request):
         # 1 작성자의 게시글만! 조회
-        # 1-1 시리얼라이저 사용X 다시
-        # user = request.user
-        # posts = Post.objects.filter(user=user)
-        # return Response({"message":"ㅈㅎ성공"})
+        # 1-1 시리얼라이저 사용X
+        user = request.user
+        print(user)
+        posts = Post.objects.filter(user=user).values('user', 'content')
+        return Response ({'post': posts})
         
         # 1-2 시리얼라이저 사용O
-        print(request.data)
-        user = request.user
-        
-        return Response(UserSerializer(user).data)
+        # print(request.data)
+        # user = request.user
+        # return Response(UserSerializer(user).data)
         
         
         # 2 전체 게시글 조회
-        # 2-1 시리얼라이저 사용X 다시
-        # posts = Post.objects.all()
-        # return posts  
+        # 2-1 시리얼라이저 사용X
+        # posts = Post.objects.values('user', 'content') 
+        # return Response ({'post': posts})
+                # # values() > id, user, content
+                # # values('user', 'content') > user, content
     
         # 2-2 시리얼라이저 사용O
         # posts = Post.objects.all()
